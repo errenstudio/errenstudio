@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erren Studio — Jasa Desain & Layout Jersey</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FFFFFF;
+    --cream: #F5F0E8;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #8B6E2A;
+    --navy: #0D1B2A;
+    --navy-mid: #1A2A3A;
+    --navy-light: #2E4A6B;
+    --gray: #8fa3b1;
+    --gray-light: #e8edf2;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-logo img { height: 28px; filter: invert(0); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { color: var(--gray); font-size: 13px; text-decoration: none; letter-spacing: 0.3px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--gold); color: var(--black); font-size: 13px; font-weight: 600; padding: 9px 20px; border-radius: 6px; text-decoration: none; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: linear-gradient(rgba(201,168,76,0.5) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(201,168,76,0.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .hero-icon { width: 64px; height: 64px; margin-bottom: 28px; filter: brightness(0) invert(1); opacity: 0.9; }
+  .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+  .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(42px, 8vw, 88px); font-weight: 700; line-height: 1.0; letter-spacing: -2px; margin-bottom: 10px; }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub { font-size: clamp(14px, 2vw, 17px); color: var(--gray); max-width: 520px; line-height: 1.7; margin: 20px auto 40px; font-weight: 300; }
+  .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--gold); color: var(--black); font-weight: 700; font-size: 14px; padding: 14px 28px; border-radius: 8px; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline { border: 1px solid rgba(201,168,76,0.4); color: var(--gold); font-size: 14px; padding: 14px 28px; border-radius: 8px; text-decoration: none; transition: all 0.2s; }
+  .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+  .hero-stats { display: flex; gap: 48px; justify-content: center; margin-top: 64px; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: var(--gold); }
+  .stat-lbl { font-size: 12px; color: var(--gray); margin-top: 4px; }
+
+  /* SECTIONS */
+  section { padding: 96px 24px; max-width: 1100px; margin: 0 auto; }
+  .section-wrap { padding: 96px 24px; }
+  .section-wrap.dark { background: var(--navy); }
+  .section-wrap.darker { background: #060D14; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 4vw, 42px); font-weight: 700; letter-spacing: -1px; margin-bottom: 14px; }
+  .section-sub { color: var(--gray); font-size: 15px; line-height: 1.7; max-width: 560px; }
+  .gold-line { width: 48px; height: 2px; background: var(--gold); margin: 20px 0 48px; }
+
+  /* PRICING */
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .price-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(46,74,107,0.8);
+    border-radius: 16px; padding: 32px 28px;
+    position: relative; transition: transform 0.2s, border-color 0.2s;
+  }
+  .price-card:hover { transform: translateY(-4px); }
+  .price-card.featured { border-color: var(--gold); background: linear-gradient(135deg, #1E3048 0%, #1A2A3A 100%); }
+  .price-card.featured::before { content: '⭐ Paling Populer'; position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--black); font-size: 11px; font-weight: 700; padding: 4px 16px; border-radius: 20px; white-space: nowrap; }
+  .price-badge { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 1px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; text-transform: uppercase; }
+  .badge-satuan { background: rgba(201,168,76,0.15); color: var(--gold); }
+  .badge-bulanan { background: rgba(46,74,107,0.6); color: #7EB3E8; }
+  .badge-featured { background: rgba(201,168,76,0.2); color: var(--gold-light); }
+  .price-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+  .price-amount { font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+  .price-amount.featured-price { color: var(--gold-light); }
+  .price-per { font-size: 13px; color: var(--gray); margin-bottom: 24px; }
+  .price-divider { border: none; border-top: 1px solid rgba(46,74,107,0.5); margin-bottom: 20px; }
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .price-features li { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: #c8d6e5; line-height: 1.5; }
+  .price-features li::before { content: '✦'; color: var(--gold); font-size: 10px; margin-top: 2px; flex-shrink: 0; }
+  .price-hemat { font-size: 12px; color: #5AC48A; font-weight: 600; margin-bottom: 20px; }
+  .price-btn { display: block; text-align: center; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+  .price-btn.gold { background: var(--gold); color: var(--black); }
+  .price-btn.gold:hover { background: var(--gold-light); }
+  .price-btn.outline { border: 1px solid rgba(201,168,76,0.4); color: var(--gold); }
+  .price-btn.outline:hover { background: rgba(201,168,76,0.1); }
+
+  /* PRICING TABS */
+  .tab-btns { display: flex; gap: 8px; margin-bottom: 36px; flex-wrap: wrap; }
+  .tab-btn { padding: 9px 20px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid rgba(46,74,107,0.6); background: transparent; color: var(--gray); transition: all 0.2s; }
+  .tab-btn.active { background: var(--gold); color: var(--black); border-color: var(--gold); font-weight: 700; }
+  .tab-content { display: none; }
+  .tab-content.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+
+  /* KATALOG */
+  .katalog-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+  .filter-btn { padding: 7px 16px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid rgba(46,74,107,0.6); background: transparent; color: var(--gray); transition: all 0.2s; }
+  .filter-btn.active, .filter-btn:hover { background: var(--gold); color: var(--black); border-color: var(--gold); font-weight: 600; }
+  .katalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+  .design-card {
+    background: var(--navy-mid); border: 1px solid rgba(46,74,107,0.6);
+    border-radius: 12px; overflow: hidden; cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .design-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+  .design-thumb {
+    aspect-ratio: 1; background: #0D1B2A;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px; position: relative; overflow: hidden;
+  }
+  .design-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .design-thumb .placeholder-icon { font-size: 40px; opacity: 0.3; }
+  .design-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
+  .design-card:hover .design-overlay { opacity: 1; }
+  .design-overlay span { background: var(--gold); color: var(--black); font-size: 12px; font-weight: 700; padding: 8px 16px; border-radius: 6px; }
+  .design-info { padding: 14px; }
+  .design-cat { font-size: 10px; font-weight: 600; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .design-name { font-size: 13px; font-weight: 500; margin-bottom: 8px; }
+  .design-price { font-size: 15px; font-weight: 700; color: var(--gold); }
+  .design-price.free { color: #5AC48A; }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; padding: 20px; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.3); border-radius: 16px; max-width: 580px; width: 100%; max-height: 90vh; overflow-y: auto; }
+  .modal-img { aspect-ratio: 1; background: #0D1B2A; display: flex; align-items: center; justify-content: center; border-radius: 16px 16px 0 0; overflow: hidden; }
+  .modal-img img { width: 100%; height: 100%; object-fit: cover; }
+  .modal-img .placeholder-big { font-size: 80px; opacity: 0.2; }
+  .modal-body { padding: 24px; }
+  .modal-cat { font-size: 11px; font-weight: 600; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .modal-name { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+  .modal-desc { font-size: 14px; color: var(--gray); line-height: 1.7; margin-bottom: 16px; }
+  .modal-meta { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+  .modal-meta-row { display: flex; justify-content: space-between; font-size: 13px; }
+  .modal-meta-row span:first-child { color: var(--gray); }
+  .modal-meta-row span:last-child { font-weight: 500; }
+  .modal-divider { border: none; border-top: 1px solid rgba(46,74,107,0.5); margin: 16px 0; }
+  .modal-price-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .modal-price { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: var(--gold); }
+  .modal-price.free { color: #5AC48A; }
+  .modal-btns { display: flex; gap: 10px; }
+  .modal-btn-buy { flex: 1; background: var(--gold); color: var(--black); font-weight: 700; font-size: 14px; padding: 13px; border-radius: 8px; text-decoration: none; text-align: center; transition: background 0.2s; }
+  .modal-btn-buy:hover { background: var(--gold-light); }
+  .modal-btn-close { padding: 13px 18px; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); border-radius: 8px; cursor: pointer; background: transparent; font-size: 14px; transition: all 0.2s; }
+  .modal-btn-close:hover { background: rgba(201,168,76,0.1); }
+
+  /* CLIENTS */
+  .clients-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .client-card { background: var(--navy-mid); border: 1px solid rgba(46,74,107,0.5); border-radius: 10px; padding: 16px 12px; text-align: center; }
+  .client-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; margin: 0 auto 10px; }
+  .client-name { font-size: 12px; font-weight: 500; color: var(--white); margin-bottom: 2px; }
+  .client-city { font-size: 11px; color: var(--gray); }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .contact-item { display: flex; align-items: center; gap: 14px; background: var(--navy-mid); border: 1px solid rgba(46,74,107,0.5); border-radius: 12px; padding: 18px 20px; text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+  .contact-item:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .contact-icon { width: 40px; height: 40px; border-radius: 8px; background: rgba(201,168,76,0.15); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .contact-info p:first-child { font-size: 11px; color: var(--gray); margin-bottom: 2px; }
+  .contact-info p:last-child { font-size: 13px; font-weight: 500; color: var(--white); }
+
+  /* FOOTER */
+  footer { background: #060D14; border-top: 1px solid rgba(201,168,76,0.15); padding: 40px 24px; text-align: center; }
+  footer img { height: 22px; filter: brightness(0) invert(1); opacity: 0.5; margin-bottom: 12px; }
+  footer p { font-size: 12px; color: var(--gray); }
+  footer p span { color: var(--gold); }
+
+  /* NOTE BOX */
+  .note-box { background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.2); border-radius: 10px; padding: 14px 18px; font-size: 13px; color: var(--gray); margin-top: 24px; line-height: 1.7; }
+  .note-box strong { color: var(--gold); }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    section { padding: 64px 20px; }
+    .section-wrap { padding: 64px 20px; }
+    .hero-stats { gap: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="logo-icon.png" alt="Erren Studio icon">
+    <img src="logo-wordmark.png" alt="Erren Studio" style="height:20px; filter: brightness(0) invert(1);">
+  </div>
+  <div class="nav-links">
+    <a href="#harga">Harga</a>
+    <a href="#katalog">Katalog</a>
+    <a href="#klien">Klien</a>
+    <a href="#kontak">Kontak</a>
+  </div>
+  <a href="https://wa.me/6285712687558?text=Halo%20Erren%20Studio%2C%20saya%20ingin%20tanya%20tentang%20jasa%20desain%20jersey" class="nav-cta" target="_blank">Hubungi WA</a>
+</nav>
+
+<!-- HERO -->
+<div style="min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:120px 24px 80px; position:relative; overflow:hidden; background: var(--black);">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <img src="logo-icon.png" alt="" class="hero-icon">
+  <p class="hero-eyebrow">Jasa Desain & Layout Jersey Profesional</p>
+  <h1 class="section-title" style="font-size: clamp(42px,8vw,88px); letter-spacing:-2px; margin-bottom:10px;">
+    Desain Jersey<br><span style="color:var(--gold);">Langsung Mockup</span>
+  </h1>
+  <p class="hero-sub">Pola, logo sponsor, hingga layout siap cetak — semua dikerjakan oleh Erren Studio dengan cepat dan profesional.</p>
+  <div class="hero-btns">
+    <a href="https://wa.me/6285712687558?text=Halo%20Erren%20Studio%2C%20saya%20mau%20tanya%20paket%20desain%20jersey" class="btn-primary" target="_blank">
+      💬 Chat WhatsApp
+    </a>
+    <a href="#harga" class="btn-outline">Lihat Paket Harga</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">500+</div><div class="stat-lbl">Desain Selesai</div></div>
+    <div class="stat"><div class="stat-num">120+</div><div class="stat-lbl">Tim Dilayani</div></div>
+    <div class="stat"><div class="stat-num">15+</div><div class="stat-lbl">Kota Jangkauan</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">Tahun Pengalaman</div></div>
+  </div>
+</div>
+
+<!-- HARGA -->
+<div class="section-wrap darker" id="harga">
+  <div class="section-inner">
+    <p class="section-eyebrow">Harga Jasa</p>
+    <h2 class="section-title">Pilih Paket yang Sesuai</h2>
+    <p class="section-sub">Transparan, tanpa biaya tersembunyi. Harga bisa disesuaikan setiap tahun atas kesepakatan bersama.</p>
+    <div class="gold-line"></div>
+
+    <!-- TABS -->
+    <div class="tab-btns">
+      <button class="tab-btn active" onclick="showTab('satuan')">Satuan / Per Tim</button>
+      <button class="tab-btn" onclick="showTab('desain')">Paket Desain Bulanan</button>
+      <button class="tab-btn" onclick="showTab('bundling')">Paket Desain + Layout</button>
+    </div>
+
+    <!-- TAB SATUAN -->
+    <div class="tab-content active" id="tab-satuan">
+      <div class="price-card">
+        <span class="price-badge badge-satuan">Desain Saja</span>
+        <p class="price-name">Desain / Tim</p>
+        <p class="price-amount">Rp 65.000</p>
+        <p class="price-per">per tim · bayar per order</p>
+        <hr class="price-divider">
+        <ul class="price-features">
+          <li>Pola / pattern jersey</li>
+          <li>Logo & sponsor pecah</li>
+          <li>Langsung mockup</li>
+          <li>File siap pakai</li>
+        </ul>
+        <a href="https://wa.me/6285712687558?text=Halo%2C%20saya%20mau%20order%20desain%20jersey%20satuan" class="price-btn outline" target="_blank">Order Sekarang</a>
+      </div>
+      <div class="price-card">
+        <span class="price-badge badge-satuan">Layout Saja</span>
+        <p class="price-name">Layout / Tim</p>
+        <p class="price-amount">Rp 55.000</p>
+        <p class="price-per">per tim · bayar per order</p>
+        <hr class="price-divider">
+        <ul class="price-features">
+          <li>Layouting file cetak</li>
+          <li>Siap kirim ke konveksi</li>
+          <li>Revisi wajar included</li>
+          <li>Format sesuai kebutuhan</li>
+        </ul>
+        <a href="https://wa.me/6285712687558?text=Halo%2C%20saya%20mau%20order%20layout%20jersey%20satuan" class="price-btn outline" target="_blank">Order Sekarang</a>
+      </div>
+      <div class="price-card featured">
+        <span class="price-badge badge-featured">Bundling Hemat</span>
+        <p class="price-name">Desain + Layout / Tim</p>
+        <p class="price-amount featured-price">Rp 110.000</p>
+        <p class="price-per">per tim · hemat Rp 10.000</p>
+        <hr class="price-divider">
+        <ul class="price-features">
+          <li>Desain lengkap + mockup</li>
+          <li>Logo & sponsor pecah</li>
+          <li>Layout siap cetak</li>
+          <li>Semua dalam satu paket</li>
+        </ul>
+        <a href="https://wa.me/6285712687558?text=Halo%2C%20saya%20mau%20order%20desain%20%2B%20layout%20jersey" class="price-btn gold" target="_blank">Order Sekarang</a>
+      </div>
+    </div>
+
+    <!-- TAB DESAIN BULANAN -->
+    <div class="tab-content" id="tab-desain">
+      <div class="price-card featured" style="max-width:380px; margin:0 auto;">
+        <span class="price-badge badge-featured">Komitmen Bulanan</span>
+        <p class="price-name">Paket Desain Unlimited</p>
+        <p class="price-amount featured-price">Rp 2.000.000</p>
+        <p class="price-per">per bulan · desain tidak terbatas</p>
+        <hr class="price-divider">
+        <ul class="price-features">
+          <li>Desain tidak terbatas per bulan</li>
+          <li>Pola, logo, sponsor — semua termasuk</li>
+          <li>Langsung mockup setiap desain</li>
+          <li>Antrian 5–8 tim per hari</li>
+          <li>Sistem komitmen / kontrak</li>
+        </ul>
+        <p class="price-hemat">Hemat ~Rp 925.000 vs bayar satuan 45 tim</p>
+        <a href="https://wa.me/6285712687558?text=Halo%2C%20saya%20tertarik%20paket%20desain%20bulanan%20Rp%202%20juta" class="price-btn gold" target="_blank">Mulai Sekarang</a>
+      </div>
+    </div>
+
+    <!-- TAB BUNDLING -->
+    <div class="tab-content" id="tab-bundling">
+      <div class="price-card">
+        <span class="price-badge badge-bulanan">Paket Starter</span>
+        <p class="price-name">Layout Unlimited + Desain 20 Tim</p>
+        <p class="price-amount">Rp 2.500.000</p>
+        <p class="price-per">per bulan</p>
+        <hr class="price-divider">
+        <ul class="price-features">
+          <li>Layout jersey tidak terbatas</li>
+          <li>Desain lengkap 20 tim/bulan</li>
+          <li>Pola, logo, sponsor, mockup</li>
+          <li>5 desain ready gratis/bulan</li>
+          <li>Sistem komitmen / kontrak</li>
+        </ul>
+        <p class="price-hemat">Hemat Rp 700.000 vs satuan 20 tim</p>
+        <a href="https://wa.me/6285712687558?text=Halo%2C%20saya%20tertarik%20Paket%20Starter%20Rp%202.5%20juta" class="price-btn outline" target="_blank">Pilih Paket Ini</a>
+      </div>
+      <div class="price-card featured">
+        <span class="price-badge badge-featured">Paket Unlimited</span>
+        <p class="price-name">Layout + Desain Tidak Terbatas</p>
+        <p class="price-amount featured-price">Rp 3.000.000</p>
+        <p class="price-per">per bulan</p>
+        <hr class="price-divider">
+        <ul class="price-features">
+          <li>Layout jersey tidak terbatas</li>
+          <li>Desain tidak terbatas per bulan</li>
+          <li>Pola, logo, sponsor, mockup</li>
+          <li>Semua desain ready gratis</li>
+          <li>Sistem komitmen / kontrak</li>
+        </ul>
+        <p class="price-hemat">Hemat Rp 850.000 vs satuan 35 tim</p>
+        <a href="https://wa.me/6285712687558?text=Halo%2C%20saya%20tertarik%20Paket%20Unlimited%20Rp%203%20juta" class="price-btn gold" target="_blank">Pilih Paket Ini</a>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>Catatan:</strong> Harga dapat naik atau turun setiap tahunnya berdasarkan kesepakatan bersama. Untuk paket unlimited, pengerjaan antri maksimal 5–8 tim per hari berdasarkan urutan masuk.
+    </div>
+  </div>
+</div>
+
+<!-- KATALOG DESAIN READY -->
+<div class="section-wrap dark" id="katalog">
+  <div class="section-inner">
+    <p class="section-eyebrow">Katalog</p>
+    <h2 class="section-title">Desain Ready</h2>
+    <p class="section-sub">Pilih desain jadi, langsung beli dan siap pakai. Gratis untuk pelanggan paket bulanan.</p>
+    <div class="gold-line"></div>
+
+    <div class="katalog-filter">
+      <button class="filter-btn active" onclick="filterDesign('semua', this)">Semua</button>
+      <button class="filter-btn" onclick="filterDesign('Futsal', this)">Futsal</button>
+      <button class="filter-btn" onclick="filterDesign('Bola', this)">Bola</button>
+      <button class="filter-btn" onclick="filterDesign('Voli', this)">Voli</button>
+      <button class="filter-btn" onclick="filterDesign('Basket', this)">Basket</button>
+    </div>
+
+    <div class="katalog-grid" id="katalog-grid"></div>
+  </div>
+</div>
+
+<!-- KLIEN -->
+<div class="section-wrap darker" id="klien">
+  <div class="section-inner">
+    <p class="section-eyebrow">Mitra Kami</p>
+    <h2 class="section-title">Tim yang Telah Bergabung</h2>
+    <p class="section-sub">Dipercaya oleh konveksi dan tim olahraga dari berbagai kota.</p>
+    <div class="gold-line"></div>
+    <div class="clients-grid">
+      <!-- =============================================
+           CARA TAMBAH KLIEN:
+           Copy blok <div class="client-card"> di bawah,
+           ganti nama, kota, dan warna avatar sesuai kebutuhan
+           ============================================= -->
+      <div class="client-card"><div class="client-avatar" style="background:rgba(201,168,76,0.2);color:var(--gold);">FC</div><p class="client-name">Futsal Club Alpha</p><p class="client-city">Tegal</p></div>
+      <div class="client-card"><div class="client-avatar" style="background:rgba(46,74,107,0.4);color:#7EB3E8;">BS</div><p class="client-name">Bintang Sport</p><p class="client-city">Brebes</p></div>
+      <div class="client-card"><div class="client-avatar" style="background:rgba(90,196,138,0.2);color:#5AC48A;">RJ</div><p class="client-name">Rajawali Jersey</p><p class="client-city">Pemalang</p></div>
+      <div class="client-card"><div class="client-avatar" style="background:rgba(201,168,76,0.2);color:var(--gold);">SK</div><p class="client-name">Sinar Konveksi</p><p class="client-city">Pekalongan</p></div>
+      <div class="client-card"><div class="client-avatar" style="background:rgba(232,122,122,0.2);color:#E87A7A;">GA</div><p class="client-name">Garuda Apparel</p><p class="client-city">Slawi</p></div>
+      <div class="client-card"><div class="client-avatar" style="background:rgba(46,74,107,0.4);color:#7EB3E8;">MJ</div><p class="client-name">Macan Jersey</p><p class="client-city">Tegal</p></div>
+    </div>
+    <p style="font-size:12px; color:var(--gray); margin-top:20px; text-align:center;">* Nama klien di atas adalah placeholder — ganti dengan nama asli di file HTML</p>
+  </div>
+</div>
+
+<!-- KONTAK -->
+<div class="section-wrap dark" id="kontak">
+  <div class="section-inner">
+    <p class="section-eyebrow">Hubungi Kami</p>
+    <h2 class="section-title">Siap Mulai?</h2>
+    <p class="section-sub">Konsultasi gratis, respon cepat. Hubungi kami lewat WhatsApp atau media sosial.</p>
+    <div class="gold-line"></div>
+    <div class="contact-grid">
+      <a href="https://wa.me/6285712687558" class="contact-item" target="_blank">
+        <div class="contact-icon">💬</div>
+        <div class="contact-info"><p>WhatsApp</p><p>085712687558</p></div>
+      </a>
+      <a href="mailto:errenstudio.co@gmail.com" class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-info"><p>Email</p><p>errenstudio.co@gmail.com</p></div>
+      </a>
+      <a href="https://instagram.com/errenstudio" class="contact-item" target="_blank">
+        <div class="contact-icon">📸</div>
+        <div class="contact-info"><p>Instagram</p><p>@errenstudio</p></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <img src="logo-wordmark.png" alt="Erren Studio">
+  <p>© 2025 <span>Erren Studio</span> · Jasa Desain & Layout Jersey Profesional</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" id="modal-content">
+    <div class="modal-img" id="modal-img"></div>
+    <div class="modal-body">
+      <p class="modal-cat" id="modal-cat"></p>
+      <h3 class="modal-name" id="modal-name"></h3>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-meta" id="modal-meta"></div>
+      <hr class="modal-divider">
+      <div class="modal-price-row">
+        <p class="modal-price" id="modal-price"></p>
+        <p style="font-size:12px; color:var(--gray);" id="modal-free-note"></p>
+      </div>
+      <div class="modal-btns">
+        <a href="#" class="modal-btn-buy" id="modal-btn" target="_blank">Beli via WhatsApp</a>
+        <button class="modal-btn-close" onclick="document.getElementById('modal').classList.remove('open')">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// =============================================
+// DATA DESAIN READY
+// Cara tambah desain baru:
+// 1. Simpan foto di folder yang sama dengan file HTML ini
+// 2. Copy salah satu objek di bawah
+// 3. Ganti semua isinya sesuai desain kamu
+// 4. Simpan file — langsung muncul di website!
+// =============================================
+const designs = [
+  {
+    id: 1,
+    name: "Jersey Geometrik Pro",
+    category: "Futsal",
+    price: 75000,
+    image: "",           // ← isi dengan nama file foto, contoh: "desain-001.jpg"
+    description: "Pola geometrik modern dengan aksen garis diagonal. Cocok untuk tim futsal profesional.",
+    format: "CDR + AI + PNG Mockup",
+    ukuran: "Full Size, siap cetak",
+    warna: "Bisa custom warna"
+  },
+  {
+    id: 2,
+    name: "Jersey Voli Bintang",
+    category: "Voli",
+    price: 65000,
+    image: "",
+    description: "Desain dinamis dengan motif bintang dan gradasi warna. Cocok untuk tim putri maupun putra.",
+    format: "CDR + AI + PNG Mockup",
+    ukuran: "Full Size, siap cetak",
+    warna: "Bisa custom warna"
+  },
+  {
+    id: 3,
+    name: "Jersey Bola Tribal",
+    category: "Bola",
+    price: 80000,
+    image: "",
+    description: "Motif tribal khas dengan sentuhan modern. Tampil beda di lapangan.",
+    format: "CDR + AI + PNG Mockup",
+    ukuran: "Full Size, siap cetak",
+    warna: "Bisa custom warna"
+  },
+  {
+    id: 4,
+    name: "Jersey Basket Urban",
+    category: "Basket",
+    price: 70000,
+    image: "",
+    description: "Gaya urban streetwear untuk tim basket. Bold dan eye-catching.",
+    format: "CDR + AI + PNG Mockup",
+    ukuran: "Full Size, siap cetak",
+    warna: "Bisa custom warna"
+  },
+  {
+    id: 5,
+    name: "Jersey Futsal Camo",
+    category: "Futsal",
+    price: 75000,
+    image: "",
+    description: "Pola camouflage sporty untuk tampilan yang unik dan kuat di lapangan.",
+    format: "CDR + AI + PNG Mockup",
+    ukuran: "Full Size, siap cetak",
+    warna: "Bisa custom warna"
+  },
+  {
+    id: 6,
+    name: "Jersey Voli Batik Fusion",
+    category: "Voli",
+    price: 85000,
+    image: "",
+    description: "Perpaduan motif batik modern dengan desain jersey sporty. Unik dan berkarakter.",
+    format: "CDR + AI + PNG Mockup",
+    ukuran: "Full Size, siap cetak",
+    warna: "Bisa custom warna"
+  }
+];
+
+const emojiMap = { Futsal: "⚽", Bola: "🏆", Voli: "🏐", Basket: "🏀" };
+
+function renderKatalog(filter = 'semua') {
+  const grid = document.getElementById('katalog-grid');
+  const filtered = filter === 'semua' ? designs : designs.filter(d => d.category === filter);
+  grid.innerHTML = filtered.map(d => {
+    const isFree = false;
+    const priceLabel = isFree ? 'GRATIS' : 'Rp ' + d.price.toLocaleString('id-ID');
+    const priceClass = isFree ? 'free' : '';
+    const thumb = d.image
+      ? `<img src="${d.image}" alt="${d.name}">`
+      : `<span class="placeholder-icon">${emojiMap[d.category] || '👕'}</span>`;
+    return `
+      <div class="design-card" onclick="openModal(${d.id})">
+        <div class="design-thumb">
+          ${thumb}
+          <div class="design-overlay"><span>Lihat Detail</span></div>
+        </div>
+        <div class="design-info">
+          <p class="design-cat">${d.category}</p>
+          <p class="design-name">${d.name}</p>
+          <p class="design-price ${priceClass}">${priceLabel}</p>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function filterDesign(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderKatalog(cat);
+}
+
+function openModal(id) {
+  const d = designs.find(x => x.id === id);
+  if (!d) return;
+  const priceLabel = 'Rp ' + d.price.toLocaleString('id-ID');
+  const imgHTML = d.image
+    ? `<img src="${d.image}" alt="${d.name}">`
+    : `<div class="placeholder-big">${emojiMap[d.category] || '👕'}</div>`;
+  document.getElementById('modal-img').innerHTML = imgHTML;
+  document.getElementById('modal-cat').textContent = d.category;
+  document.getElementById('modal-name').textContent = d.name;
+  document.getElementById('modal-desc').textContent = d.description;
+  document.getElementById('modal-price').textContent = priceLabel;
+  document.getElementById('modal-price').className = 'modal-price';
+  document.getElementById('modal-free-note').textContent = 'Gratis untuk Paket Unlimited';
+  document.getElementById('modal-meta').innerHTML = `
+    <div class="modal-meta-row"><span>Format file</span><span>${d.format}</span></div>
+    <div class="modal-meta-row"><span>Ukuran</span><span>${d.ukuran}</span></div>
+    <div class="modal-meta-row"><span>Warna</span><span>${d.warna}</span></div>
+  `;
+  const msg = encodeURIComponent(`Halo Erren Studio, saya tertarik membeli desain ready "${d.name}" (${d.category}) seharga Rp ${d.price.toLocaleString('id-ID')}. Apakah masih tersedia?`);
+  document.getElementById('modal-btn').href = `https://wa.me/6285712687558?text=${msg}`;
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal')) {
+    document.getElementById('modal').classList.remove('open');
+  }
+}
+
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+renderKatalog();
+</script>
+</body>
+</html>
